@@ -1,3 +1,6 @@
+//useCase: When API limit exhaust
+//This Notice should appear
+
 import { Info } from "lucide-react";
 
 interface ErrorMessageProps {

@@ -1,3 +1,6 @@
+//[slug] is a dynamic route segment that acts as a placeholder for variable data in a URL, 
+// which is essential for building a scalable news platform
+
 'use client';
 
 import React, { useEffect, useMemo, useState } from "react";

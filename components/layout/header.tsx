@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from "react";
-import { Search, Moon, Sun, Menu, X } from "lucide-react"; 
+import { Search, Menu, X } from "lucide-react"; 
 import Link from "next/link"; 
 import { usePathname, useRouter } from "next/navigation"; 
 import { useNews } from "../../context/newcontext"; 
