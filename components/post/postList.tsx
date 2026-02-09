@@ -41,3 +41,4 @@ export default function PostList({ posts }: { posts: any[] }) {
     </section>
   );
 }
+

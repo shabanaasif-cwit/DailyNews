@@ -10,6 +10,7 @@ export default function Card({
   onAction,
 }: any) {
   
+
   const truncatedTitle = title?.split(" ").slice(0, 7).join(" ") + (title?.split(" ").length > 8 ? "..." : "");
   const truncatedExcerpt = excerpt?.split(" ").slice(0, 15).join(" ") + (excerpt?.split(" ").length > 16 ? "..." : "");
   const fallbackImage = "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=1000";
@@ -41,7 +42,7 @@ export default function Card({
         </p>
         <div className="pt-3 mt-auto border-t border-gray-200 dark:border-zinc-800 flex items-center justify-between gap-4">
           <span className="text-[10px] italic text-gray-600 dark:text-zinc-500 flex-1">By {author}</span>
-          <button className="bg-orange-600 text-white px-4 py-2 text-xs font-bold uppercase rounded-sm hover:bg-black transition-all transform active:scale-95 shadow-md">
+          <button className="bg-orange-600 text-white px-4 py-2 text-xs font-bold uppercase rounded-sm hover:bg-black transition-all transform active:scale-95 shadow-md cursor-pointer">
             Read more
           </button>
         </div>

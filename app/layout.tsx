@@ -9,7 +9,7 @@ import { ThemeProvider } from 'next-themes';
 export const metadata: Metadata = {
   title: {
     default: "Daily News | Breaking Stories",
-    template: "%s | Daily News" // This makes sub-page titles dynamic
+    template: "%s | Daily News" 
   },
   description: "Stay updated with the latest stories from Daily News",
   icons: {
@@ -28,9 +28,9 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark">
           <NewsProvider>
             <Header />
-              <main className="flex-grow">
-                {children}
-              </main>
+            <main className="flex-grow">
+              {children}
+            </main>
             <Footer />
           </NewsProvider>
         </ThemeProvider>
