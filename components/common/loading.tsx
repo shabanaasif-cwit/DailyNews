@@ -1,3 +1,5 @@
+//When use navigate this loader should appear
+
 export default function Loading() {
   return (
     // MODIFICATION: Set min-h-[60vh] to prevent the footer from jumping up while content loads
@@ -15,7 +17,7 @@ export default function Loading() {
           Updating <span className="text-orange-600 italic">Daily</span> News
         </p>
         <p className="text-[10px] text-gray-500 font-bold uppercase tracking-[0.2em] animate-pulse delay-75">
-          Fetching latest stories...
+          Fetching latest news...
         </p>
       </div>
     </div>

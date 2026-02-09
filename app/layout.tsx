@@ -8,6 +8,7 @@ import { ThemeProvider } from 'next-themes';
 // MODIFICATION: Import NextTopLoader to provide the navigation progress bar
 import NextTopLoader from 'nextjs-toploader';
 
+
 export const metadata: Metadata = {
   title: {
     default: "Daily News | Breaking Stories",

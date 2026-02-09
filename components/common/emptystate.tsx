@@ -1,3 +1,6 @@
+//UseCase: When there is no new news found 
+//which is searched by end-user
+
 import { SearchX } from "lucide-react";
 
 export default function EmptyState({ message }: { message: string }) {
