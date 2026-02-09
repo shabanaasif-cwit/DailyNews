@@ -5,11 +5,11 @@ import { Search, Moon, Sun, Menu, X } from "lucide-react";
 import Link from "next/link"; 
 import { usePathname, useRouter } from "next/navigation"; 
 import { useNews } from "../../context/newcontext"; 
-import { useTheme } from "next-themes";
+
 
 export default function Header() {
   const { searchQuery, setSearchQuery, setSelectedCategory } = useNews();
-  const { theme, setTheme } = useTheme();
+
   const pathname = usePathname(); 
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -59,14 +59,7 @@ export default function Header() {
               </button>
             </form>
           </div>
-          
-          <button 
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="bg-orange-600 p-2 rounded-md text-white hover:bg-orange-700 transition-colors shrink-0 cursor-pointer"
-            aria-label="Toggle Theme"
-          >
-            {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
+
 
           <button className="md:hidden text-white ml-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
