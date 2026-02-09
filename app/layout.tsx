@@ -5,9 +5,7 @@ import Header from "@/components/layout/header";
 import { NewsProvider } from "@/context/newcontext";
 import Footer from "@/components/layout/footer";
 import { ThemeProvider } from 'next-themes';
-// MODIFICATION: Import NextTopLoader to provide the navigation progress bar
 import NextTopLoader from 'nextjs-toploader';
-
 
 export const metadata: Metadata = {
   title: {
@@ -26,18 +24,31 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+    /* suppressHydrationWarning is vital when using ThemeProvider */
     <html lang="en" suppressHydrationWarning>
-      <body className="antialiased bg-white dark:bg-[#121417] text-black dark:text-white min-h-screen flex flex-col transition-colors duration-300">
-        <ThemeProvider attribute="class" defaultTheme="dark">
+      {/* MODIFICATION: Removed "bg-white dark:bg-[#121417]".
+          We now use "bg-background" and "text-foreground" which are 
+          linked to our CSS variables in globals.css.
+      */}
+      <body className="antialiased bg-background text-foreground min-h-screen flex flex-col transition-colors duration-300">
+        <ThemeProvider 
+          attribute="class" 
+          defaultTheme="dark" 
+          enableSystem={false}
+          /* CORE MECHANISM: This tells the app that 'dark' is the base state (no class),
+             and 'light' is the modifier that adds the .light class.
+          */
+          value={{
+            light: "light",
+            dark: "dark-mode-base" // This can be empty or a dummy class since Dark is our :root
+          }}
+        >
           <NewsProvider>
-            {/* MODIFICATION: Added NextTopLoader. 
-              This creates the orange loading line at the top of the viewport 
-              whenever a user clicks a category or search.
-            */}
+            
             <NextTopLoader 
-              color="#ea580c"       // Matches your orange-600 branding
-              showSpinner={false}    // Removes the spinning circle for a cleaner 'line' look
-              height={3}             // Thickness of the loading bar
+              color="#ea580c"
+              showSpinner={false}
+              height={3}
               crawl={true} 
               easing="ease" 
               speed={200} 
@@ -53,4 +64,5 @@ export default function RootLayout({
       </body>
     </html>
   );
-} 
+}
+
