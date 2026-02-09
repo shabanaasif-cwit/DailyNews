@@ -28,12 +28,12 @@ export default function Header() {
   };
 
   return (
-    <header className="w-full bg-[#121417] border-b border-gray-800 sticky top-0 z-50">
+    <header className="w-full bg-[#121417] border-b border-gray-800 sticky top-0 z-50 ">
       <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center gap-8">
         
         <Link 
           href="/" 
-          className="flex items-center tracking-tighter uppercase shrink-0" 
+          className="flex items-center tracking-tighter uppercase shrink-0 hover:scale-110" 
           onClick={() => setSelectedCategory("Home")}
         >
           <span className="text-orange-600 text-3xl md:text-4xl font-black italic">Daily</span>
@@ -81,23 +81,31 @@ export default function Header() {
             const isActive = pathname === categoryPath;
 
             return (
-              <Link 
-                key={cat} 
-                href={categoryPath}
-                onClick={() => {
-                  setSelectedCategory(cat.charAt(0).toUpperCase() + cat.slice(1));
-                  setIsMenuOpen(false);
-                }}
-                className={`text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative group antialiased ${
-                  isActive ? 'text-orange-600' : 'text-gray-400 hover:text-white'
-                }`}
-                style={{ fontStretch: "condensed" }}
-              >
-                {cat}
-                <span className={`absolute -bottom-1.5 left-0 h-[1.5px] bg-orange-600 transition-all duration-500 ${
-                  isActive ? 'w-full' : 'w-0 group-hover:w-full'
-                }`}></span>
-              </Link>
+                <Link 
+                  key={cat} 
+                  href={categoryPath}
+                  onClick={() => {
+                    setSelectedCategory(cat.charAt(0).toUpperCase() + cat.slice(1));
+                    setIsMenuOpen(false);
+                  }}
+                  className={`text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative group antialiased 
+                    ${isActive ? 'text-orange-600' : 'text-gray-400 hover:text-white'}
+                    
+                    /* MODIFICATION: 
+                      1. Added hover:scale-110 for the zoom effect.
+                      2. Added inline-block to allow the scale transform to apply correctly.
+                      3. Added transform class to ensure hardware acceleration for the animation.
+                    */
+                    hover:scale-105 inline-block transform`} 
+                  
+                  style={{ fontStretch: "condensed" }}
+                >
+                  {cat}
+                  <span className={`absolute -bottom-1.5 left-0 h-[1.5px] bg-orange-600 transition-all duration-500 ${
+                    isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`}></span>
+                </Link>
+
             );
           })}
         </nav>
