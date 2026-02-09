@@ -17,7 +17,7 @@ export default function Footer() {
           {/* Brand Section */}
           <div className="col-span-1 md:col-span-1">
             <div 
-              className="flex items-center tracking-tighter uppercase mb-4 cursor-pointer hover:opacity-80 transition-opacity"
+              className="flex items-center tracking-tighter uppercase mb-4 cursor-pointer hover:opacity-80 transition-opacity hover:scale-110"
               onClick={() => router.push("/")} // In Next.js, home is usually "/"
             >
               <span className="text-orange-600 text-3xl font-black italic">Daily</span>
@@ -30,7 +30,7 @@ export default function Footer() {
 
           {/* Quick Links / Categories */}
           <div>
-            <h4 className="text-lg font-bold mb-4 uppercase text-orange-600 hover:opacity-80 cursor-pointer">Categories</h4>
+            <h4 className="text-lg font-bold mb-4 uppercase text-orange-600 hover:opacity-80 cursor-pointer hover:scale-105">Categories</h4>
             <ul className="space-y-2 text-sm text-gray-400">
               <li><Link href="/" className="hover:text-white transition-colors">Business</Link></li>
               <li><Link href="/" className="hover:text-white transition-colors">Technology</Link></li>
@@ -41,7 +41,7 @@ export default function Footer() {
 
           {/* Support */}
           <div>
-            <h4 className="text-lg font-bold mb-4 uppercase text-orange-600 hover:opacity-80 cursor-pointer">Support</h4>
+            <h4 className="text-lg font-bold mb-4 uppercase text-orange-600 hover:opacity-80 cursor-pointer hover:scale-105">Support</h4>
             <ul className="space-y-2 text-sm text-gray-400">
               <li><Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
               <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
@@ -71,12 +71,35 @@ export default function Footer() {
           <p className="text-gray-500 text-xs text-center md:text-left">
             © {currentYear} Daily News Media Group. All rights reserved.
           </p>
-          <div className="flex gap-6 text-gray-400">
-            <Facebook size={20} className="hover:text-blue-600 cursor-pointer transition-colors" />
-            <Twitter size={20} className="hover:text-blue-400 cursor-pointer transition-colors" />
-            <Instagram size={20} className="hover:text-pink-500 cursor-pointer transition-colors" />
-            <Youtube size={20} className="hover:text-red-600 cursor-pointer transition-colors" />
-            <Mail size={20} className="hover:text-red-600 cursor-pointer transition-colors" />
+
+          {/* MODIFICATION: 
+            1. Wrapped icons in <a> tags because these are EXTERNAL links.
+            2. Added 'target="_blank"' so users don't leave your Next.js app.
+            3. Added 'rel="noopener noreferrer"' for security.
+            4. Applied 'hover:scale-110' and 'inline-block' to match your category style.
+          */}
+          {/* MODIFICATION: Standardized indentation to fix the 'cut' visual error */}
+            {/* MODIFICATION: Cleaned up the 'a' tag structure to fix visual line breaks in the editor */}
+          <div className="flex gap-4 items-center">
+            <a href="https://www.facebook.com/login" target="_blank" rel="noopener noreferrer" className="inline-block transform transition-transform hover:scale-110">
+              <Facebook size={20} className="hover:text-blue-600 cursor-pointer transition-colors" />
+            </a>
+            
+            <a href="https://twitter.com/login" target="_blank" rel="noopener noreferrer" className="inline-block transform transition-transform hover:scale-110">
+              <Twitter size={20} className="hover:text-blue-400 cursor-pointer transition-colors" />
+            </a>
+            
+            <a href="https://www.instagram.com/accounts/login" target="_blank" rel="noopener noreferrer" className="inline-block transform transition-transform hover:scale-110">
+              <Instagram size={20} className="hover:text-pink-500 cursor-pointer transition-colors" />
+            </a>
+            
+            <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" className="inline-block transform transition-transform hover:scale-110">
+              <Youtube size={20} className="hover:text-red-600 cursor-pointer transition-colors" />
+            </a>
+
+            <a href="mailto:contact@dailynews.com" className="inline-block transform transition-transform hover:scale-110">
+              <Mail size={20} className="hover:text-orange-600 cursor-pointer transition-colors" />
+            </a>
           </div>
         </div>
       </div>
