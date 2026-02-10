@@ -9,7 +9,7 @@ import NextTopLoader from 'nextjs-toploader';
 
 export const metadata: Metadata = {
   title: {
-    default: "Daily News | Breaking Stories",
+    default: "Daily News | Get Updated ",
     template: "%s | Daily News" 
   },
   description: "Stay updated with the latest stories from Daily News",
@@ -28,9 +28,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       {/* MODIFICATION: Removed "bg-white dark:bg-[#121417]".
           We now use "bg-background" and "text-foreground" which are 
-          linked to our CSS variables in globals.css.
+          linked to our CSS variables in globals.css. antialiased how fonts are rendered
       */}
-      <body className="antialiased bg-background text-foreground min-h-screen flex flex-col transition-colors duration-300">
+      <body className="antialiased bg-background text-foreground min-h-screen flex flex-col transition-colors duration-75">
         <ThemeProvider 
           attribute="class" 
           defaultTheme="dark" 
@@ -43,6 +43,7 @@ export default function RootLayout({
             dark: "dark-mode-base" // This can be empty or a dummy class since Dark is our :root
           }}
         >
+
           <NewsProvider>
             
             <NextTopLoader 

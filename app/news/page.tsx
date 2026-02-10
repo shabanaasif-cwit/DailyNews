@@ -5,13 +5,14 @@ import Card from "@/components/common/card";
 import Button from "@/components/common/button";
 import Loading from "@/components/common/loading"; 
 import ErrorMessage from "@/components/common/errormessage"; 
-import EmptyState from "@/components/common/emptystate"; // Added EmptyState
+import EmptyState from "@/components/common/emptystate"; 
 import { useNews } from "@/hooks/useNews"; 
 
 export default function Home() {
-  const { posts, loading, error, setSelectedCategory, searchQuery } = useNews();
+  // MODIFICATION: Pull sortOrder from useNews
+  const { posts, loading, error, setSelectedCategory, searchQuery, sortOrder } = useNews();
   
-  const [sortOrder, setSortOrder] = useState<"newest" | "oldest" | "a-z" | "z-a">("newest");
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12; 
 
@@ -37,12 +38,12 @@ export default function Home() {
       switch (sortOrder) {
         case "newest": return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
         case "oldest": return new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime();
-        case "a-z": return a.title.localeCompare(b.title);
-        case "z-a": return b.title.localeCompare(a.title);
+        case "a-z": return (a.title || "").localeCompare(b.title || "");
+        case "z-a": return (b.title || "").localeCompare(a.title || "");
         default: return 0;
       }
     });
-  }, [posts, sortOrder, searchQuery]); // Added searchQuery as dependency
+  }, [posts, sortOrder, searchQuery]);
 
   const totalPages = Math.ceil(filteredAndSortedPosts.length / itemsPerPage);
 
@@ -78,10 +79,19 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             
             {paginatedPosts.map((article: any, index: number) => (
-              <Card key={article.id || index} {...article} onAction={() => window.open(article.url, "_blank")} />
+              <Card 
+                key={article.id || index} 
+                {...article} 
+                onAction={() => window.open(article.url, "_blank")} 
+              />
             ))}
           </div>
-          {/* Pagination UI remains same... */}
+          
+          <div className="flex justify-center gap-4">
+             <Button disabled={currentPage === 1} onClick={() => setCurrentPage(p => p - 1)}>Prev</Button>
+             <span className="flex items-center font-bold text-[#121417] dark:text-white">{currentPage} / {totalPages}</span>
+             <Button disabled={currentPage === totalPages} onClick={() => setCurrentPage(p => p + 1)}>Next</Button>
+          </div>
         </>
       )}
     </div>

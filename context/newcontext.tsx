@@ -1,4 +1,5 @@
 'use client'; 
+
 import React, { createContext, useState, useEffect, useContext, useCallback } from "react";
 import { fetchPosts } from "@/services/api"; 
 
@@ -16,13 +17,14 @@ export const NewsProvider = ({ children }: { children: React.ReactNode }) => {
   const [error, setError] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState("Home");
   const [searchQuery, setSearchQuery] = useState(""); 
+  // MODIFICATION: Added sortOrder to global context
+  const [sortOrder, setSortOrder] = useState("newest");
 
   const loadData = useCallback(async (category: string) => {
     try {
       setLoading(true);
       setError(null);
       
-      // Modification: Ensure 'Home' and 'General' both point to the correct API endpoint
       const apiCategory = (category === "Home" || category === "General") 
         ? "general" 
         : category.toLowerCase();
@@ -48,7 +50,10 @@ export const NewsProvider = ({ children }: { children: React.ReactNode }) => {
       setSelectedCategory, 
       selectedCategory,
       searchQuery,
-      setSearchQuery
+      setSearchQuery,
+      loadData,
+      sortOrder,    // MODIFICATION: Exported
+      setSortOrder  // MODIFICATION: Exported
     }}>
       {children}
     </NewsContext.Provider>
