@@ -1,12 +1,9 @@
 "use client";
 
-
-
 import React, { useEffect } from "react";
 import { Scale, AlertCircle, CheckCircle, FileWarning } from "lucide-react";
 
 export default function Terms() {
-  // Ensure the page starts at the top when navigated from footer
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -30,38 +27,40 @@ export default function Terms() {
   ];
 
   return (
-    // Updated bg-white to support dark mode
-    <div className="w-full bg-white dark:bg-[#121417] min-h-screen transition-colors duration-300">
+    <div className="w-full bg-background text-foreground min-h-screen transition-colors duration-500">
       <main className="max-w-4xl mx-auto px-4 py-16">
         
         {/* Header Section */}
         <div className="mb-12 border-b-2 border-orange-600 pb-8">
-          <div className="flex items-center gap-2 text-[#121417] dark:text-white mb-4">
+          <div className="flex items-center gap-2 text-foreground mb-4">
             <Scale className="text-orange-600" size={28} />
-            <span className="font-bold uppercase tracking-tighter text-xl">Legal Agreement</span>
+            <span className="font-bold uppercase tracking-tighter text-xl transition-colors duration-500">Legal Agreement</span>
           </div>
-          <h2 className="text-4xl font-black text-[#121417] dark:text-white uppercase italic tracking-tighter">
+          <h2 className="text-4xl font-black text-foreground uppercase italic tracking-tighter transition-colors duration-500">
             Terms of <span className="text-orange-600">Service</span>
           </h2>
-          <p className="text-gray-500 dark:text-zinc-400 mt-2">Effective Date: January 31, 2026</p>
+          {/* FIX: Removed dark:text-zinc-400. text-foreground/50 is perfect for secondary dates */}
+          <p className="text-foreground/50 mt-2 transition-colors duration-500">Effective Date: January 31, 2026</p>
         </div>
 
         {/* Quick Summary Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           {guidelines.map((item, index) => (
-            // Added dark:bg and dark:border classes
-            <div key={index} className="p-6 bg-gray-50 dark:bg-[#1a1d21] border border-gray-100 dark:border-zinc-800 rounded-sm shadow-sm transition-colors">
+            /* FIX: Swapped border-gray-200 for border-border-custom */
+            <div key={index} className="p-6 bg-nav border border-border-custom rounded-sm shadow-sm transition-all duration-500">
               <div className="text-orange-600 mb-3">{item.icon}</div>
-              <h4 className="font-bold text-[#121417] dark:text-white text-sm uppercase mb-2">{item.title}</h4>
-              <p className="text-xs text-gray-600 dark:text-zinc-400 leading-relaxed">{item.text}</p>
+              <h4 className="font-bold text-foreground text-sm uppercase mb-2 transition-colors duration-500">{item.title}</h4>
+              {/* FIX: Removed dark:text-zinc-400. Using text-foreground/70 for better contrast */}
+              <p className="text-xs text-foreground/70 leading-relaxed transition-colors duration-500">{item.text}</p>
             </div>
           ))}
         </div>
 
         {/* Full Terms Content */}
-        <div className="space-y-10 text-gray-700 dark:text-zinc-300 leading-7">
+        {/* FIX: Removed dark:text-zinc-300 from the parent div */}
+        <div className="space-y-10 text-foreground/80 leading-7 transition-colors duration-500">
           <section>
-            <h3 className="text-lg font-black text-[#121417] dark:text-white uppercase mb-4 flex items-center gap-2">
+            <h3 className="text-lg font-black text-foreground uppercase mb-4 flex items-center gap-2 transition-colors duration-500">
               <span className="w-1.5 h-6 bg-orange-600 inline-block"></span>
               1. User Agreement
             </h3>
@@ -72,7 +71,7 @@ export default function Terms() {
           </section>
 
           <section>
-            <h3 className="text-lg font-black text-[#121417] dark:text-white uppercase mb-4 flex items-center gap-2">
+            <h3 className="text-lg font-black text-foreground uppercase mb-4 flex items-center gap-2 transition-colors duration-500">
               <span className="w-1.5 h-6 bg-orange-600 inline-block"></span>
               2. Content Ownership
             </h3>
@@ -84,7 +83,7 @@ export default function Terms() {
           </section>
 
           <section>
-            <h3 className="text-lg font-black text-[#121417] dark:text-white uppercase mb-4 flex items-center gap-2">
+            <h3 className="text-lg font-black text-foreground uppercase mb-4 flex items-center gap-2 transition-colors duration-500">
               <span className="w-1.5 h-6 bg-orange-600 inline-block"></span>
               3. Account Responsibility
             </h3>
@@ -94,9 +93,10 @@ export default function Terms() {
             </p>
           </section>
 
-          {/* Alert box styling for Dark Mode */}
-          <section className="bg-orange-50 dark:bg-orange-900/20 p-6 border-l-4 border-orange-600 italic shadow-lg transition-colors">
-            <p className="text-sm dark:text-orange-200">
+          {/* Alert box styling */}
+          {/* FIX: Removed dark:text-orange-200. Used text-foreground/90 for clean light mode look */}
+          <section className="bg-orange-600/5 dark:bg-orange-900/20 p-6 border-l-4 border-orange-600 italic shadow-lg transition-all duration-500">
+            <p className="text-sm text-foreground/90 transition-colors duration-500">
               Note: Daily News reserves the right to modify these terms at any time. We recommend checking 
               this page regularly for updates to ensure you stay informed.
             </p>
@@ -106,3 +106,5 @@ export default function Terms() {
     </div>
   );
 }
+
+
