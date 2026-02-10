@@ -19,7 +19,7 @@ export default function Home() {
             <span className="text-xs font-black tracking-[0.3em] text-white uppercase skew-x-12 block">Live Updates 24/7</span>
           </div>
 
-          <h1 className="text-6xl md:text-8xl font-black leading-none tracking-tighter uppercase italic transition-transform duration-300 hover:scale-105 text-foreground">
+          <h1 className="text-6xl md:text-8xl font-black leading-none tracking-tighter uppercase italic transition-transform duration-300 hover:scale-105 text-foreground cursor-pointer">
             <span className="text-orange-600">Daily</span> News
           </h1>
 

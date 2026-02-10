@@ -10,10 +10,6 @@ export default function Footer() {
   const router = useRouter();
 
   return (
-    /* Key Changes: 
-       - bg-background and text-foreground connect to your CSS variables.
-       - transition-all duration-500 ease-in-out ensures the smooth fade.
-    */
     <footer className="w-full bg-background text-foreground border-t border-border-custom pt-12 pb-6 mt-auto transition-all duration-500 ease-in-out">
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
@@ -25,17 +21,19 @@ export default function Footer() {
               onClick={() => router.push("/")}
             >
               <span className="text-orange-600 text-3xl font-black italic">Daily</span>
-              <span className="text-foreground text-xl font-bold ml-1">News</span>
+              <span className="text-foreground text-xl font-bold ml-1 transition-colors duration-500">News</span>
             </div>
-            <p className="text-foreground/60 dark:text-zinc-400 text-sm leading-relaxed transition-colors duration-500">
+            {/* FIX: Removed dark:text-zinc-400 to allow the foreground variable to take over */}
+            <p className="text-foreground/60 text-sm leading-relaxed transition-colors duration-500">
               Bringing you the most reliable and up-to-date news from around the world. Stay informed, stay ahead.
             </p>
           </div>
 
           {/* Categories */}
           <div>
-            <h4 className="text-lg font-bold mb-4 uppercase text-orange-600">Categories</h4>
-            <ul className="space-y-2 text-sm text-foreground/70 dark:text-zinc-400 transition-colors duration-500">
+            <h4 className="text-lg font-bold mb-4 uppercase text-orange-600 cursor-pointer hover:scale-105">Categories</h4>
+            {/* FIX: Removed dark:text-zinc-400. text-foreground/70 will now be dark gray/black in light mode */}
+            <ul className="space-y-2 text-sm text-foreground/70 transition-colors duration-500">
               <li><Link href="/category/business" className="hover:text-orange-600 transition-colors">Business</Link></li>
               <li><Link href="/category/technology" className="hover:text-orange-600 transition-colors">Technology</Link></li>
               <li><Link href="/category/science" className="hover:text-orange-600 transition-colors">Science</Link></li>
@@ -45,8 +43,9 @@ export default function Footer() {
 
           {/* Support */}
           <div>
-            <h4 className="text-lg font-bold mb-4 uppercase text-orange-600">Support</h4>
-            <ul className="space-y-2 text-sm text-foreground/70 dark:text-zinc-400 transition-colors duration-500">
+            <h4 className="text-lg font-bold mb-4 uppercase text-orange-600 cursor-pointer hover:scale-105">Support</h4>
+            {/* FIX: Removed dark:text-zinc-400 */}
+            <ul className="space-y-2 text-sm text-foreground/70 transition-colors duration-500">
               <li><Link href="/contact" className="hover:text-orange-600 transition-colors">Contact Us</Link></li>
               <li><Link href="/about" className="hover:text-orange-600 transition-colors">About Us</Link></li>
               <li><Link href="/privacy" className="hover:text-orange-600 transition-colors">Privacy Policy</Link></li>
@@ -61,7 +60,7 @@ export default function Footer() {
               <input 
                 type="email" 
                 placeholder="Email address" 
-                className="bg-transparent border-none outline-none text-sm p-2 w-full text-foreground placeholder:text-foreground/30"
+                className="bg-transparent border-none outline-none text-sm p-2 w-full text-foreground placeholder:text-foreground/30 transition-colors duration-500"
               />
               <button className="bg-orange-600 text-white p-2 hover:bg-orange-700 transition-colors cursor-pointer">
                 <Mail size={18} />

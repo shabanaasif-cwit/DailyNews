@@ -6,8 +6,7 @@ import { useTheme } from "next-themes"; // Import this
 import Link from "next/link"; 
 import { usePathname } from "next/navigation"; 
 import { useNews } from "../../context/newcontext"; 
-
-
+ 
 export default function Header() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -79,7 +78,7 @@ export default function Header() {
                     </button>
                   )}
           </div>
-
+          
           <button className="md:hidden text-foreground ml-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
@@ -109,8 +108,6 @@ export default function Header() {
                   pathname === (cat === "home" ? "/" : `/category/${cat}`) ? 'w-full' : 'w-0 group-hover:w-full'
                 }`}></span>
               </Link> 
-
-
 
           ))}
         </nav>

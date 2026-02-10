@@ -28,27 +28,26 @@ export default function Privacy() {
   ];
 
   return (
-    /* MODIFICATION: Used bg-background and text-foreground variables */
-    <div className="w-full bg-background text-foreground min-h-screen transition-colors duration-300">
+    <div className="w-full bg-background text-foreground min-h-screen transition-colors duration-500">
       <main className="max-w-4xl mx-auto px-4 py-16">
         
         {/* Header Section */}
-        <div className="mb-12 border-b border-gray-200 dark:border-zinc-800 pb-8">
+        {/* FIX: Used border-border-custom to ensure the line isn't too dark/light */}
+        <div className="mb-12 border-b border-border-custom pb-8">
           <div className="flex items-center gap-3 text-orange-600 mb-4">
             <FileText size={32} />
-            <span className="font-bold uppercase tracking-widest text-xs text-foreground/60 dark:text-zinc-400">Legal Documentation</span>
+            <span className="font-bold uppercase tracking-widest text-xs text-foreground/60 transition-colors duration-500">Legal Documentation</span>
           </div>
-          <h2 className="text-4xl font-black text-foreground uppercase italic tracking-tighter">
+          <h2 className="text-4xl font-black text-foreground uppercase italic tracking-tighter transition-colors duration-500">
             Privacy <span className="text-orange-600">Policy</span>
           </h2>
-          {/* MODIFICATION: text-foreground/50 for a clean but legible subtext in light mode */}
-          <p className="text-foreground/50 dark:text-zinc-500 mt-4 text-sm">Last Updated: January 31, 2026</p>
+          <p className="text-foreground/50 mt-4 text-sm transition-colors duration-500">Last Updated: January 31, 2026</p>
         </div>
 
         {/* Introduction */}
         <section className="mb-12">
-          {/* MODIFICATION: text-foreground/90 for high-contrast reading */}
-          <p className="text-lg text-foreground/90 dark:text-zinc-300 leading-relaxed">
+          {/* FIX: Removed dark:text-zinc-300. text-foreground/90 will be 90% black in light mode. */}
+          <p className="text-lg text-foreground/90 leading-relaxed transition-colors duration-500">
             At <span className="font-bold text-foreground">Daily News</span>, we value your trust. This policy outlines how we handle your information and our commitment to maintaining your privacy while you stay informed with our global reporting.
           </p>
         </section>
@@ -56,20 +55,21 @@ export default function Privacy() {
         {/* Feature Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {sections.map((section, index) => (
-            /* MODIFICATION: Used bg-nav for the card background */
             <div 
               key={index} 
-              className="bg-nav p-6 border-t-4 border-orange-600 shadow-sm transition-colors"
+              className="bg-nav p-6 border-t-4 border-orange-600 shadow-sm transition-all duration-500"
             >
               <div className="text-orange-600 mb-4">{section.icon}</div>
               <h3 className="font-bold text-foreground uppercase mb-2 text-sm">{section.title}</h3>
-              <p className="text-sm text-foreground/70 dark:text-zinc-400 leading-relaxed">{section.content}</p>
+              {/* FIX: text-foreground/70 provides a clear 'soft black' for readability */}
+              <p className="text-sm text-foreground/70 leading-relaxed transition-colors duration-500">{section.content}</p>
             </div>
           ))}
         </div>
 
         {/* Detailed Content */}
-        <div className="max-w-none text-foreground/80 dark:text-zinc-300 space-y-12">
+        {/* FIX: Applied text-foreground/80 to the parent container to fix all inner paragraphs */}
+        <div className="max-w-none text-foreground/80 space-y-12 transition-colors duration-500">
           <article>
             <h3 className="text-xl font-bold text-foreground uppercase mb-4 flex items-center gap-2">
               <span className="w-1.5 h-6 bg-orange-600 inline-block"></span>
@@ -107,4 +107,5 @@ export default function Privacy() {
     </div>
   );
 }
+
 
