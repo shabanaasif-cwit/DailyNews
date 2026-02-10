@@ -1,15 +1,40 @@
 'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import Card from '../components/common/card'; 
 
 export default function Home() {
+  // Define the 3 specific news stories
+  const featuredNews = [
+    {
+      id: "global-economy-2026",
+      title: "The Shift in Global Markets",
+      subtitle: "Economy",
+      excerpt: "As we move further into 2026, central banks are signaling a massive pivot in interest rate policies...",
+      author: "Sarah Jenkins"
+    },
+    {
+      id: "ai-breakthrough-tech",
+      title: "Beyond the LLM: What's Next?",
+      subtitle: "Technology",
+      excerpt: "New neural architectures are outperforming standard transformers in efficiency and reasoning capabilities...",
+      author: "Marcus Chen"
+    },
+    {
+      id: "sustainable-cities-future",
+      title: "Green Infrastructure in Lahore",
+      subtitle: "Urban Development",
+      excerpt: "How local initiatives are transforming the media district into a model for sustainable urban living...",
+      author: "Shabana Asif"
+    }
+  ];
+
   return (
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden transition-colors duration-300">
       
-      {/* HERO SECTION */}
+      {/* HERO SECTION - Keep as is */}
       <section className="min-h-[80vh] flex items-center justify-center px-6 relative overflow-hidden">
-        {/* Changed opacity to work in both modes */}
         <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] dark:opacity-[0.02] pointer-events-none select-none">
           <h1 className="text-[35vw] font-black italic text-foreground">NEWS</h1>
         </div>
@@ -40,7 +65,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FEATURED SECTION */}
+      {/* FEATURED SECTION - Now with 3 specific news links */}
       <section className="max-w-7xl mx-auto px-6 py-20 border-t border-gray-200 dark:border-gray-800">
         <div className="flex items-center gap-4 mb-12">
           <div className="h-10 w-2 bg-orange-600 -skew-x-12"></div>
@@ -50,12 +75,24 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          <Card title="..." subtitle="..." excerpt="..." author="..." />
-          {/* ... other cards */}
+          {featuredNews.map((news) => (
+            <Link key={news.id} href={`/news/${news.id}`} className="group block">
+              <div className="transition-transform duration-300 group-hover:-translate-y-2">
+                <Card 
+                  title={news.title} 
+                  subtitle={news.subtitle} 
+                  excerpt={news.excerpt} 
+                  author={news.author} 
+                />
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
     </main>
   );
 }
+
+
 
 

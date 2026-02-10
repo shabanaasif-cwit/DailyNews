@@ -19,3 +19,5 @@ export const useNews = () => {
   // Returns: { posts, loading, error, searchQuery, setSearchQuery, setSelectedCategory, selectedCategory, theme, setTheme }
   return context;
 };
+
+
