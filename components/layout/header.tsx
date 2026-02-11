@@ -15,21 +15,19 @@ export default function Header() {
   const pathname = usePathname(); 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   
-  // Custom Dropdown State
   const [isSortOpen, setIsSortOpen] = useState(false);
   const sortRef = useRef<HTMLDivElement>(null);
 
+  // MODIFIED: Values now match the slug page logic perfectly
   const sortOptions = [
     { value: 'newest', label: 'Newest' },
     { value: 'oldest', label: 'Oldest' },
-    { value: 'az', label: 'A - Z' },
-    { value: 'za', label: 'Z - A' },
+    { value: 'a-z', label: 'A - Z' },
+    { value: 'z-a', label: 'Z - A' },
   ];
 
   useEffect(() => {
     setMounted(true);
-    
-    // Close dropdown when clicking outside
     const handleClickOutside = (event: MouseEvent) => {
       if (sortRef.current && !sortRef.current.contains(event.target as Node)) {
         setIsSortOpen(false);
@@ -46,8 +44,6 @@ export default function Header() {
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
       <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center gap-4">
-        
-        {/* Logo and Sidebar Trigger */}
         <div className="flex items-center gap-3">
           <button 
             className="text-foreground hover:text-orange-600 transition-colors cursor-pointer" 
@@ -62,7 +58,6 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Search and Controls */}
         <div className="flex items-center gap-2 flex-grow justify-end">
           <div className="hidden sm:flex items-center w-full max-w-[550px] gap-2">
             <form className="flex bg-nav items-center px-3 py-1 -skew-x-12 border border-gray-800 w-full group focus-within:border-orange-600 transition-colors">
@@ -78,7 +73,6 @@ export default function Header() {
               </button>
             </form>
 
-            {/* Refresh Button */}
             <button 
               onClick={() => loadData(selectedCategory)}
               className="flex items-center justify-center bg-nav text-foreground p-2 -skew-x-12 border border-gray-800 hover:text-orange-600 transition-all cursor-pointer rounded-sm shrink-0"
@@ -86,7 +80,6 @@ export default function Header() {
               <div className="skew-x-12"><RotateCw size={18} /></div>
             </button>
 
-            {/* STRAIGHT CUSTOM SORTING DROPDOWN */}
             <div className="relative shrink-0" ref={sortRef}>
               <button 
                 onClick={() => setIsSortOpen(!isSortOpen)}
@@ -101,7 +94,6 @@ export default function Header() {
                 </div>
               </button>
 
-              {/* Straight Menu - No Skew for maximum clarity */}
               {isSortOpen && (
                 <ul className="absolute top-[42px] left-0 w-full min-w-[120px] bg-nav border border-gray-800 z-50 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
                   {sortOptions.map((option) => (
@@ -114,7 +106,7 @@ export default function Header() {
                         className={`w-full text-left px-4 py-2.5 text-[10px] font-black uppercase tracking-widest transition-colors
                           ${sortOrder === option.value 
                             ? 'bg-orange-600 text-white' 
-                            : 'text-foreground hover:bg-orange-600 hover:text-white' // ORANGE HOVER BAR
+                            : 'text-foreground hover:bg-orange-600 hover:text-white'
                           }`}
                       >
                         {option.label}
@@ -126,7 +118,6 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Theme Toggle */}
           {mounted && (
             <button 
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -140,7 +131,6 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Category Navigation */}
       <div className="md:block bg-nav border-t border-gray-800">
         <nav className="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-center md:justify-start gap-x-8 gap-y-3">
           {categories.map((cat) => (
