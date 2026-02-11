@@ -46,10 +46,10 @@ export default function Footer() {
             <h4 className="text-lg font-bold mb-4 uppercase text-orange-600 cursor-pointer hover:scale-105">Support</h4>
             {/* FIX: Removed dark:text-zinc-400 */}
             <ul className="space-y-2 text-sm text-foreground/70 transition-colors duration-500">
+              <li><Link href="/terms" className="hover:text-orange-600 transition-colors">Terms of Service</Link></li>
+              <li><Link href="/privacy" className="hover:text-orange-600 transition-colors">Privacy Policy</Link></li>
               <li><Link href="/contact" className="hover:text-orange-600 transition-colors">Contact Us</Link></li>
               <li><Link href="/about" className="hover:text-orange-600 transition-colors">About Us</Link></li>
-              <li><Link href="/privacy" className="hover:text-orange-600 transition-colors">Privacy Policy</Link></li>
-              <li><Link href="/terms" className="hover:text-orange-600 transition-colors">Terms of Service</Link></li>
             </ul>
           </div>
 

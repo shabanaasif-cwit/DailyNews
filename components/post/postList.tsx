@@ -1,6 +1,10 @@
+//this is exceptional case scenario
+//needed when there is npo news in that category today 
+
+//use client' is a "directive" that tells the framework where to draw the line between the Server and the Browser.
 "use client";
 
-import React from "react";
+import React from "react";  
 import Card from "../common/card"; // Adjusted path to match standard Next.js structure
 
 export default function PostList({ posts }: { posts: any[] }) {
@@ -32,6 +36,7 @@ export default function PostList({ posts }: { posts: any[] }) {
             // Logic: window.open requires 'use client'
             onAction={() => {
               if (post.url) {
+                //efficiently opening external news articles in a new browser tab
                 window.open(post.url, "_blank", "noopener,noreferrer");
               }
             }}

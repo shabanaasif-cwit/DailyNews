@@ -1,3 +1,5 @@
+//slug category name in the address
+
 'use client';
 
 import React, { useEffect, useMemo, useState } from "react";
@@ -10,6 +12,7 @@ import EmptyState from "@/components/common/emptystate";
 import Button from "@/components/common/button";
 
 export default function CategoryPage() {
+  // useParams() is a built-in hook from next/navigation
   const { slug } = useParams();
   
   // MODIFICATION: Added 'sortOrder' to the destructured context to keep UI in sync
@@ -21,7 +24,10 @@ export default function CategoryPage() {
   // Sync URL slug with Context
   useEffect(() => {
     if (slug) {
+      //slug.toString().charAt(0).toUpperCase(): This grabs the very first letter and makes it a Capital letter
       const formatted = slug.toString().charAt(0).toUpperCase() + slug.toString().slice(1);
+
+      //slug.toString().slice(1): This grabs the rest of the word starting from the second letter.
       setSelectedCategory(formatted);
     }
   }, [slug, setSelectedCategory]);
@@ -31,6 +37,8 @@ export default function CategoryPage() {
   }, [searchQuery]);
 
   // MODIFICATION: Integrated Sorting logic based on Header's sortOrder
+
+  // useMemo: Only recalculate this list if the posts or the searchQuery actually changes
   const filteredAndSortedPosts = useMemo(() => {
     if (!posts) return [];
     

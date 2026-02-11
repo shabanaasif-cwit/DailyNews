@@ -1,39 +1,35 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Card from '../components/common/card'; 
+import { useNews } from '../context/newcontext'; 
 
 export default function Home() {
-  // Define the 3 specific news stories
-  const featuredNews = [
-    {
-      id: "global-economy-2026",
-      title: "The Shift in Global Markets",
-      subtitle: "Economy",
-      excerpt: "As we move further into 2026, central banks are signaling a massive pivot in interest rate policies...",
-      author: "Sarah Jenkins"
-    },
-    {
-      id: "ai-breakthrough-tech",
-      title: "Beyond the LLM: What's Next?",
-      subtitle: "Technology",
-      excerpt: "New neural architectures are outperforming standard transformers in efficiency and reasoning capabilities...",
-      author: "Marcus Chen"
-    },
-    {
-      id: "sustainable-cities-future",
-      title: "Green Infrastructure in Lahore",
-      subtitle: "Urban Development",
-      excerpt: "How local initiatives are transforming the media district into a model for sustainable urban living...",
-      author: "Shabana Asif"
-    }
-  ];
+  // Use 'posts' to match your NewsProvider state name
+  const { posts, loading, loadData } = useNews();
+
+  useEffect(() => {
+    // Fetch technology news specifically for the home feed
+    loadData('technology');
+  }, [loadData]);
+
+  // Transform articles and include the image URL
+  const techNews = (posts || []).slice(0, 3).map((article: any, index: number) => ({
+    id: article.url || index.toString(), 
+    title: article.title,
+    subtitle: article.source?.name || "Technology",
+    excerpt: article.description || "Stay ahead of the curve with the latest breakthroughs in tech.",
+    author: article.author || "Tech Desk",
+    url: article.url,
+    // ADDED: Pass the image from the API so it's not the same placeholder
+    image: article.urlToImage || article.image 
+  }));
 
   return (
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden transition-colors duration-300">
       
-      {/* HERO SECTION - Keep as is */}
+      {/* HERO SECTION - UNTOUCHED */}
       <section className="min-h-[80vh] flex items-center justify-center px-6 relative overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] dark:opacity-[0.02] pointer-events-none select-none">
           <h1 className="text-[35vw] font-black italic text-foreground">NEWS</h1>
@@ -54,7 +50,7 @@ export default function Home() {
           </p>
 
           <div className="mt-12 flex flex-col sm:flex-row justify-center gap-6">
-            <Link href="/category/business" className="group relative px-10 py-4 bg-orange-600 text-white font-black uppercase tracking-widest -skew-x-12 hover:bg-foreground hover:text-background transition-all duration-300">
+            <Link href="/category/technology" className="group relative px-10 py-4 bg-orange-600 text-white font-black uppercase tracking-widest -skew-x-12 hover:bg-foreground hover:text-background transition-all duration-300">
               <span className="block skew-x-12 group-hover:scale-110 transition-transform">Start Exploring</span>
             </Link>
 
@@ -65,34 +61,39 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FEATURED SECTION - Now with 3 specific news links */}
+      {/* TECHNOLOGY SECTION */}
       <section className="max-w-7xl mx-auto px-6 py-20 border-t border-gray-200 dark:border-gray-800">
         <div className="flex items-center gap-4 mb-12">
           <div className="h-10 w-2 bg-orange-600 -skew-x-12"></div>
           <h2 className="text-3xl font-black uppercase tracking-tighter italic text-foreground">
-            Featured <span className="text-orange-600">Stories</span>
+            Latest in <span className="text-orange-600">Technology</span>
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {featuredNews.map((news) => (
-            <Link key={news.id} href={`/news/${news.id}`} className="group block">
-              <div className="transition-transform duration-300 group-hover:-translate-y-2">
-                <Card 
-                  title={news.title} 
-                  subtitle={news.subtitle} 
-                  excerpt={news.excerpt} 
-                  author={news.author} 
-                />
-              </div>
-            </Link>
-          ))}
+          {loading ? (
+             [1, 2, 3].map((i) => (
+               <div key={i} className="h-64 bg-nav animate-pulse -skew-x-2 border border-gray-800 shadow-xl" />
+             ))
+          ) : techNews.length > 0 ? (
+            techNews.map((item: any) => (
+              <a key={item.id} href={item.url} target="_blank" rel="noopener noreferrer" className="group block">
+                <div className="transition-transform duration-300 group-hover:-translate-y-2">
+                  <Card 
+                    title={item.title} 
+                    subtitle={item.subtitle} 
+                    excerpt={item.excerpt} 
+                    author={item.author}
+                    image={item.image} // MODIFICATION: Passing the dynamic image here
+                  />
+                </div>
+              </a>
+            ))
+          ) : (
+            <p className="text-gray-500 italic">No technology news found at the moment.</p>
+          )}
         </div>
       </section>
     </main>
   );
 }
-
-
-
-
