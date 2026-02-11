@@ -1,19 +1,26 @@
 import React from 'react';
 
+//ButtonHTMLAttributes "blueprint" that contains every standard attribute a native HTML <button>
+// element can have—like onClick, disabled, type, className, and style 
+
+//ButtonHTMLAttributes describe the props
+//HTMLButtonElement represents the actual DOM element itself
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline';
   size?: 'sm' | 'md' | 'lg';
   isLoading?: boolean;
 }
 
-export default function Button({ 
-  children, 
-  variant = 'primary', 
-  size = 'md', 
-  isLoading, 
-  className, 
-  ...props 
-}: ButtonProps) {
+  export default function Button({ 
+    //special props
+    //Without children, your button would be a "closed" unit that couldn't hold text or icons dynamically
+    children, 
+    variant = 'primary', 
+    size = 'md', 
+    isLoading, 
+    className, 
+    ...props 
+  }: ButtonProps) {
   
   // Base styles matching your DailyNews theme
   const baseStyles = "inline-flex items-center justify-center font-black uppercase tracking-widest transition-all active:scale-95 disabled:opacity-50 disabled:pointer-events-none";
