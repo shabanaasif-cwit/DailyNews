@@ -9,6 +9,8 @@ export default function Home() {
   // Use 'posts' to match your NewsProvider state name
   const { posts, loading, loadData } = useNews();
 
+  //useEffect triggers
+
   useEffect(() => {
     // Fetch technology news specifically for the home feed
     loadData('technology');
@@ -36,10 +38,12 @@ export default function Home() {
         </div>
 
         <div className="max-w-4xl text-center relative z-10">
-          <div className="inline-block bg-orange-600 -skew-x-12 px-4 py-1 mb-6">
-            <span className="text-xs font-black tracking-[0.3em] text-white uppercase skew-x-12 block">Live Updates 24/7</span>
+          <div className="inline-block bg-orange-600 -skew-x-12 px-3 py-1 md:px-4 md:py-1.5 mb-4 md:mb-6 transition-all duration-300 min-screen">
+            <span className="text-[10px] md:text-xs font-black tracking-[0.2em] md:tracking-[0.3em] text-white uppercase skew-x-12 block [text-shadow:_0_1px_1px_rgba(0,0,0,0.4)]">
+              Live Updates 24/7
+            </span>
           </div>
-
+          
           <h1 className="text-6xl md:text-8xl font-black leading-none tracking-tighter uppercase italic transition-transform duration-300 hover:scale-105 text-foreground cursor-pointer">
             <span className="text-orange-600">Daily</span> News
           </h1>
@@ -50,7 +54,7 @@ export default function Home() {
           </p>
 
           <div className="mt-12 flex flex-col sm:flex-row justify-center gap-6">
-            <Link href="/category/technology" className="group relative px-10 py-4 bg-orange-600 text-white font-black uppercase tracking-widest -skew-x-12 hover:bg-foreground hover:text-background transition-all duration-300">
+            <Link href="/category/technology" className="group relative px-10 py-4 bg-orange-600 text-black font-black uppercase tracking-widest -skew-x-12 hover:bg-foreground hover:text-background transition-all duration-300">
               <span className="block skew-x-12 group-hover:scale-110 transition-transform">Start Exploring</span>
             </Link>
 

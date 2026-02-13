@@ -18,7 +18,7 @@ export default function Header() {
   const [isSortOpen, setIsSortOpen] = useState(false);
   const sortRef = useRef<HTMLDivElement>(null);
 
-  // MODIFIED: Values now match the slug page logic perfectly
+  
   const sortOptions = [
     { value: 'newest', label: 'Newest' },
     { value: 'oldest', label: 'Oldest' },
@@ -45,14 +45,16 @@ export default function Header() {
 
       <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center gap-4">
         <div className="flex items-center gap-3">
+          {/* FIX: Added aria-label for Menu button */}
           <button 
             className="text-foreground hover:text-orange-600 transition-colors cursor-pointer" 
+            aria-label="Open navigation menu"
             onClick={() => setIsSidebarOpen(true)}
           >
             <Menu size={28} />
           </button>
           
-          <Link href="/" className="flex items-center tracking-tighter uppercase shrink-0 hover:scale-105 transition-transform">
+          <Link href="/" className="flex items-center tracking-tighter uppercase shrink-0 hover:scale-105 transition-transform" aria-label="Daily News Home">
             <span className="text-orange-600 text-3xl md:text-4xl font-black italic">Daily</span>
             <span className="text-foreground text-xl md:text-2xl font-bold ml-1">News</span>
           </Link>
@@ -61,29 +63,41 @@ export default function Header() {
         <div className="flex items-center gap-2 flex-grow justify-end">
           <div className="hidden sm:flex items-center w-full max-w-[550px] gap-2">
             <form className="flex bg-nav items-center px-3 py-1 -skew-x-12 border border-gray-800 w-full group focus-within:border-orange-600 transition-colors">
-              <input
-                type="text"
-                placeholder="Search news..."
+              <input 
+                type="search"          
+                id="search-news"       
+                name="search-news"    
+                placeholder="Search news..." 
                 className="bg-transparent border-none outline-none text-foreground text-sm py-1 skew-x-12 w-full focus:ring-0"
                 value={searchQuery || ""} 
                 onChange={(e) => setSearchQuery(e.target.value)}
+                aria-label="Search news"
               />
-              <button type="submit" className="bg-orange-600 text-white p-1.5 ml-2 hover:bg-orange-700 transition-colors rounded-sm cursor-pointer">
+              {/* FIX: Added aria-label for Search button */}
+              <button 
+                type="submit" 
+                className="bg-orange-600 text-white p-1.5 ml-2 hover:bg-orange-700 transition-colors rounded-sm cursor-pointer"
+                aria-label="Submit search"
+              >
                 <Search size={16} className="skew-x-12" />
               </button>
             </form>
 
+            {/* FIX: Added aria-label for Refresh button */}
             <button 
               onClick={() => loadData(selectedCategory)}
               className="flex items-center justify-center bg-nav text-foreground p-2 -skew-x-12 border border-gray-800 hover:text-orange-600 transition-all cursor-pointer rounded-sm shrink-0"
+              aria-label="Refresh news feed"
             >
               <div className="skew-x-12"><RotateCw size={18} /></div>
             </button>
 
             <div className="relative shrink-0" ref={sortRef}>
+              {/* FIX: Added aria-label for Sort button */}
               <button 
                 onClick={() => setIsSortOpen(!isSortOpen)}
                 className={`flex items-center bg-nav border ${isSortOpen ? 'border-orange-600' : 'border-gray-800'} -skew-x-12 px-3 h-[38px] hover:border-orange-600 transition-colors group/sort cursor-pointer`}
+                aria-label="Sort options"
               >
                 <div className="skew-x-12 flex items-center gap-2">
                   <Filter size={14} className="text-orange-600" />
@@ -119,9 +133,11 @@ export default function Header() {
           </div>
 
           {mounted && (
+            /* FIX: Added dynamic aria-label for Theme Toggle */
             <button 
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")} 
               className="flex items-center justify-center bg-orange-600 text-white p-2 -skew-x-12 hover:bg-orange-700 transition-all border border-orange-700 rounded-sm shrink-0 cursor-pointer"
+              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             >
               <div className="skew-x-12">
                 {theme === "dark" ? <Sun size={18} strokeWidth={3} /> : <Moon size={18} strokeWidth={3} />}
@@ -131,22 +147,31 @@ export default function Header() {
         </div>
       </div>
 
-      <div className="md:block bg-nav border-t border-gray-800">
-        <nav className="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-center md:justify-start gap-x-8 gap-y-3">
+      <div className="bg-nav border-t border-gray-800 w-full">
+        <nav className="max-w-6xl mx-auto px-2 py-3 flex flex-row items-center justify-between gap-x-1 md:justify-start md:gap-x-8">
           {categories.map((cat) => (
-            <Link 
-              key={cat} 
-              href={cat === "home" ? "/" : `/category/${cat}`}
-              className={`text-[11px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative group antialiased hover:scale-105 inline-block transform
-                ${pathname === (cat === "home" ? "/" : `/category/${cat}`) ? 'text-orange-600' : 'text-foreground/70 hover:text-foreground'}`}
-            >
-              {cat}
-              <span className={`absolute -bottom-1.5 left-0 h-[1.5px] bg-orange-600 transition-all duration-500 ${pathname === (cat === "home" ? "/" : `/category/${cat}`) ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
-            </Link> 
+            //by modifing this the best practice should be 100
+           <Link 
+                key={cat} 
+                href={cat === "home" ? "/" : `/category/${cat}`}
+                /* FIX: Ensure the label is clear and descriptive */
+                aria-label={`View all posts in the ${cat} category`}
+                className={`text-[9px] md:text-[11px] font-bold uppercase tracking-tighter md:tracking-[0.15em] transition-all duration-300 relative group antialiased hover:scale-105
+                  ${pathname === (cat === "home" ? "/" : `/category/${cat}`) 
+                    ? 'text-orange-600' 
+                    : 'text-foreground/90 hover:text-foreground' // MODIFICATION: Increased opacity from /70 to /90 for contrast compliance
+                  }`}
+              >
+                {cat}
+                <span className={`absolute -bottom-1.5 left-0 h-[1.5px] bg-orange-600 transition-all duration-500 
+                  ${pathname === (cat === "home" ? "/" : `/category/${cat}`) ? 'w-full' : 'w-0 group-hover:w-full'}`}>
+                </span>
+            </Link>     
           ))}
         </nav>
       </div>
     </header>
   );
 }
+
 

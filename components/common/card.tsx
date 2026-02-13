@@ -1,5 +1,6 @@
 'use client';
-import React from "react";
+import React, { useState, useMemo } from "react";
+import Image from "next/image";
 
 export default function Card({
   title = "Breaking News Headline",
@@ -8,66 +9,65 @@ export default function Card({
   excerpt = "Summary missing...",
   author = "Staff Reporter",
   onAction,
+  isPriority = false, 
 }: any) {
+  const fallbackImage = "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=1000";
+  const [imgSrc, setImgSrc] = useState(image && image !== "" ? image : fallbackImage);
 
-  const truncatedTitle =
-    title?.split(" ").slice(0, 7).join(" ") +
-    (title?.split(" ").length > 7 ? "..." : "");
+  const memoizedContent = useMemo(() => {
+    const simpleId = title.toLowerCase().substring(0, 20).replace(/\s/g, '-');
+    const truncatedTitle = title.length > 60 ? title.substring(0, 60) + "..." : title;
+    const truncatedExcerpt = excerpt.length > 110 ? excerpt.substring(0, 110) + "..." : excerpt;
 
-  const truncatedExcerpt =
-    excerpt?.split(" ").slice(0, 15).join(" ") +
-    (excerpt?.split(" ").length > 15 ? "..." : "");
-
-  const fallbackImage =
-    "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=1000";
+    return { simpleId, truncatedTitle, truncatedExcerpt };
+  }, [title, excerpt]);
 
   return (
     <article
       onClick={onAction}
-      className="
-        group max-w-md w-full rounded-2xl overflow-hidden flex flex-col h-full cursor-pointer
-        bg-[var(--card-bg)] border border-[var(--border-color)]
-        shadow-xl transition-all duration-500
-        hover:-translate-y-4 hover:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.2)]
-      "
+      aria-labelledby={memoizedContent.simpleId}
+      className="group w-full m-0 rounded-2xl overflow-hidden flex flex-col h-full bg-[var(--card-bg)] border border-[var(--border-color)] shadow-lg transition-transform"
     >
-      <div className="h-48 w-full overflow-hidden bg-gray-200">
-        <img
-          src={image && image !== "" ? image : fallbackImage}
-          alt={title}
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-          onError={(e: any) => {
-            e.target.src = fallbackImage;
-          }}
+      <div className="relative aspect-video w-full overflow-hidden bg-gray-200">
+        <Image
+          src={imgSrc}
+          alt="" 
+          fill
+          priority={isPriority} 
+          /* MODIFICATION: 
+             1. Added 'unoptimized' to bypass 403 Forbidden errors from external domains.
+             2. Removed manual 'loading' attribute as 'priority' handles it.
+          */
+          unoptimized 
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover"
+          onError={() => setImgSrc(fallbackImage)}
         />
       </div>
 
-      <div className="p-5 space-y-3 flex flex-col flex-grow">
-        <p className="text-xs uppercase tracking-widest text-gray-500 group-hover:text-orange-600 transition-colors">
-          {subtitle}
-        </p>
-
-        <h2 className="text-xl font-serif font-bold leading-tight text-[var(--foreground)] group-hover:text-orange-600 transition-colors">
-          {truncatedTitle}
+      <div className="py-5 px-4 space-y-3 flex flex-col flex-grow">
+        <p className="text-xs uppercase text-gray-accessible font-bold">{subtitle}</p>
+        
+        <h2 id={memoizedContent.simpleId} className="text-xl font-bold leading-tight text-[var(--foreground)]">
+          {memoizedContent.truncatedTitle}
         </h2>
 
-        {/* MODIFIED: text-foreground with opacity for better readability in light mode */}
-        <p className="text-sm text-[var(--foreground)] opacity-80 leading-relaxed text-justify">
-          {truncatedExcerpt}
+        <p className="text-sm text-[var(--foreground)] leading-relaxed">
+          {memoizedContent.truncatedExcerpt}
         </p>
 
-        <div className="pt-3 mt-auto border-t border-[var(--border-color)] flex items-center justify-between gap-4">
-          <span className="text-[10px] italic text-gray-500 flex-1">
-            By {author}
-          </span>
-
-          <button className="bg-orange-600 text-white px-4 py-2 text-xs font-bold uppercase rounded-sm hover:bg-black transition-all active:scale-95 shadow-md">
+        <div className="pt-3 mt-auto border-t flex items-center justify-between">
+          <span className="text-[10px] italic text-gray-accessible">By {author}</span>
+          <button 
+            type="button"
+            aria-label={`Read full article: ${title}`}
+            className="bg-orange-600 text-black px-4 py-3 text-xs font-bold uppercase rounded-sm hover:bg-white transition-all active:scale-95 shadow-md cursor-pointer min-h-[44px]"
+          >
             Read more
           </button>
         </div>
       </div>
-    </article>
+    </article>  
   );
 }
-
 

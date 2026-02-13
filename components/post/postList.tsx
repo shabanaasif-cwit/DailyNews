@@ -1,5 +1,5 @@
 //this is exceptional case scenario
-//needed when there is npo news in that category today 
+//needed when there is no news in that category today 
 
 //use client' is a "directive" that tells the framework where to draw the line between the Server and the Browser.
 "use client";

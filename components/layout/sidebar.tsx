@@ -12,14 +12,18 @@ import { useNews } from "../../context/newcontext";
 
 interface SidebarProps {
   isOpen: boolean;
+  //nop return value
   onClose: () => void;
 }
 
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
+  //If your website is www.dailynews.com/category/technology
+  //usePathname() will return the string: "/category/technology
   const pathname = usePathname();
   const { searchQuery, setSearchQuery, loadData, selectedCategory } = useNews();
   
   // State for the click-to-reveal category list
+  //false means this state is currently off or hidden
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
 
   const categories = [
@@ -57,16 +61,22 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           {/* Sidebar Header */}
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-lg font-bold uppercase tracking-widest text-orange-600">Menu</h2>
-            <button onClick={onClose} className="text-foreground/70 hover:text-orange-600">
-              <X size={24} />
+            <button 
+              onClick={onClose} 
+              className="text-foreground/70 hover:text-orange-600 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-orange-600 rounded"
+              aria-label="Close search" // ADDED: Accessible name for screen readers
+            >
+              <X size={24} aria-hidden="true" /> {/* Hide the icon itself from screen readers */}
             </button>
           </div>
 
           {/* Search & Refresh (Visible only on Mobile) */}
-          <div className="space-y-4 mb-8 md:hidden">
+          <div className="space-y-4 mb-8 md:hidden cursor-pointer">
             <form className="flex bg-nav items-center px-3 py-1 -skew-x-12 border border-gray-800 w-full focus-within:border-orange-600">
               <input
                 type="text"
+                id="search-news"       
+                name="search-news"  
                 placeholder="Search news..."
                 className="bg-transparent border-none outline-none text-foreground text-sm py-1 skew-x-12 w-full focus:ring-0"
                 value={searchQuery || ""} 
@@ -90,7 +100,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             <div className="flex flex-col">
               <button 
                 onClick={() => setIsCategoryOpen(!isCategoryOpen)}
-                className={`flex items-center justify-between px-3 py-3 rounded-md text-sm font-bold transition-all duration-300 ${
+                className={`flex items-center justify-between px-3 py-3 rounded-md text-sm font-bold transition-all duration-300 cursor-pointer ${
                   isCategoryOpen 
                     ? "text-orange-600 bg-orange-600/5 border border-orange-600/20" 
                     : "text-foreground/70 hover:text-orange-600 border border-transparent"
@@ -104,6 +114,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
               </button>
 
               {/* Collapsible UL/LI List */}
+              {/*its a fence that say if any content inside this box tries to growlarger than itself chop or hide it */}
               <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
                 isCategoryOpen ? "max-h-[500px] opacity-100 mt-2" : "max-h-0 opacity-0"
               }`}>
@@ -128,7 +139,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                 </ul>
               </div>
             </div>
-
+ 
             {/* Support & Legal (Always Visible) */}
             <div className="pt-4 space-y-1">
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 mb-3 px-3">Support & Info</p>

@@ -1,3 +1,6 @@
+// this file is global brain of application
+// prevent from prop drilling
+
 'use client'; 
 
 import React, { createContext, useState, useEffect, useContext, useCallback } from "react";
@@ -24,7 +27,7 @@ export const NewsProvider = ({ children }: { children: React.ReactNode }) => {
   // MODIFICATION: Added sortOrder to global context
   const [sortOrder, setSortOrder] = useState("newest");
 
-  //By using useCallback, you ensure the function is memoized
+  //By using useCallback, you ensure the function is memoized(dont re-render again , render when the something specific changed)
   const loadData = useCallback(async (category: string) => {
     try {
       setLoading(true);
