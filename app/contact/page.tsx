@@ -49,7 +49,7 @@ export default function Contact() {
           <div className="space-y-6"> 
             {[
               { icon: Mail, title: "Email Us", details: ["editorial@dailynews.com", "support@dailynews.com"] },
-              { icon: Phone, title: "Call Us", details: ["+1 (555) 123-4567", "Mon - Fri, 9am - 6pm EST"] },
+              { icon: Phone, title: "Call Us", details: ["0325-7845987", "Mon - Fri, 9am - 6pm PST"] },
               { icon: MapPin, title: "Visit Us", details: ["123 News Plaza, Media District", "Lahore, Pakistan"] }
             ].map((item, idx) => (
               <div key={idx} className="bg-nav p-6 border-l-4 border-orange-600 shadow-sm">

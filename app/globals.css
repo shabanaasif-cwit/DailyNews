@@ -1,21 +1,23 @@
 @import "tailwindcss";
 
-/* 1. DEFAULT STATE (Dark Mode) */
 :root {
   --background: #121417; 
   --foreground: #ffffff;
   --nav-bg: #1a1d21;
   --card-bg: #1e2126;
   --border-color: #2d2f36;
+  /* Dark mode muted text - lighter for visibility */
+  --text-muted: #a1a1aa; 
 }
 
-/* 2. MODIFICATION STATE (Light Mode) */
 .light {
   --background: #ffffff;
-  --foreground: #000000; /* MODIFICATION: Changed from #171717 to pure black */
+  --foreground: #000000;
   --nav-bg: #f3f4f6;
   --card-bg: #ffffff;
   --border-color: #e5e7eb;
+  /* Light mode muted text - MUST be darker to pass 4.5:1 ratio */
+  --text-muted: #52525b; 
 }
 
 @theme inline {
@@ -24,21 +26,14 @@
   --color-nav: var(--nav-bg);
   --color-card: var(--card-bg);
   --color-border-custom: var(--border-color);
+  /* FIX: Map the accessible gray to a theme color */
+  --color-gray-accessible: var(--text-muted);
 }
 
 @layer base {
-  body {
-    background-color: var(--background);
-    color: var(--foreground);
-    /* MODIFICATION: Target specific properties for speed. 
-       500ms (0.5s) is the "sweet spot" for a smooth but quick feel. */
-    transition: background-color 500ms ease-in-out, color 500ms ease-in-out;
-  }
-
-  /* Force headers and paragraphs to transition at the same speed */
-  h1, h2, h3, h4, h5, h6, p, span, div, article, section {
-    transition: background-color 500ms ease-in-out, color 500ms ease-in-out, border-color 500ms ease-in-out;
+  /* FIX for Image 503db0: Increases white text contrast on orange backgrounds */
+  .bg-orange-600 {
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
   }
 }
-
 

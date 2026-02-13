@@ -86,7 +86,7 @@ export default function Home() {
               />
             ))}
           </div>
-          
+          {/*Pagination */}
           <div className="flex justify-center gap-4">
              <Button disabled={currentPage === 1} onClick={() => setCurrentPage(p => p - 1)}>Prev</Button>
              <span className="flex items-center font-bold text-[#121417] dark:text-white">{currentPage} / {totalPages}</span>

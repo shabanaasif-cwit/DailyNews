@@ -1,5 +1,6 @@
 // services/utils.ts
 //maximum number of times the function will try to fetch the data before finally reporting an error
+
 export async function fetchWithRetry(url: string, options = {}, retries = 3) {
   try {
     const response = await fetch(url, options);
@@ -12,3 +13,4 @@ export async function fetchWithRetry(url: string, options = {}, retries = 3) {
     throw error;
   }
 }
+
